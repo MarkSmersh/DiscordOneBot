@@ -1,0 +1,1 @@
+export { default as registerCommands } from "./helpers/registerCommands"
