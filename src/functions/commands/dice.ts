@@ -18,9 +18,11 @@ export default async function dice(c: Client, e: ChatInputCommandInteraction) {
         embeds: [
             new EmbedBuilder()
                 .setThumbnail(idToImage[random - 1])
-                .setDescription(`${(userData) ? ((userData === random) ? "Nice one, bitch" : "Nice try, baby") : "No predictions?"}`)
-                .setTitle("Roles the dice!")
+                .setDescription(`${(userData) ? ((userData === random) ? "Nice one, bitch!" : "Nice try, baby!") : "No predictions?"}`)
+                .setTitle(`Score: ${random}`)
                 .setAuthor({ name: e.user.username as string, iconURL: e.user.displayAvatarURL() })
+                .setFooter({ text: `${e.user.username}'s prediction: ${userData}`})
+                .setColor((userData) ? ((userData === random) ? 0x00FF00 : 0xFF0000) : 0xFFFFFF)
         ]
     })
 }

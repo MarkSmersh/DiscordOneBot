@@ -28,6 +28,19 @@ const routes: Routes = {
                 }
             ],
             function: f.dice
+        },
+        {
+            name: "apex-statistics",
+            description: "Shows apex stats by UID",
+            options: [
+                {
+                    type: 4,
+                    required: true,
+                    name: "uid",
+                    description: "Provide EA User ID"
+                }
+            ],
+            function: f.apexStats
         }
     ]
 }
