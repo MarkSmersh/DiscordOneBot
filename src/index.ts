@@ -1,5 +1,6 @@
 import { Client, GatewayIntentBits } from "discord.js"
 import * as env from "dotenv"
+import database from "./database/database";
 import * as f from "./functions/index"
 import router from "./routes/router";
 import { Command, Routes } from "./types/basic";
@@ -30,32 +31,49 @@ const routes: Routes = {
             function: f.dice
         },
         {
-            name: "apex-statistics",
-            description: "Shows apex stats by UID",
+            name: "apex-stats",
+            description: "Shows apex stats by user. If user not provided, shows stats for current user",
             options: [
                 {
-                    type: 4,
-                    required: true,
-                    name: "uid",
-                    description: "Provide EA User ID"
+                    type: 6,
+                    required: false,
+                    name: "user",
+                    description: "Provide user"
                 }
             ],
             function: f.apexStats
+        },
+        {
+            name: "apex-register",
+            description: "Connect EA account to current user",
+            options: [
+                {
+                    type: 3,
+                    required: true,
+                    name: "username",
+                    description: "Provide EA ID (username)"
+                }
+            ],
+            function: f.apexRegister
         }
     ]
 }
 
 c.once('ready', () => {
   console.log(`Logged in as ${c.user?.tag}!`);
-  const commandsFromRoutes = routes.command.map((r) => {
-    const { function:any, ...rest } = r;
-    return rest;
-  }) as Command[]
-  f.registerCommands(c, commandsFromRoutes)
 });
 
 c.on("interactionCreate", async (e) => {
     await router(c, e, routes);
 });
 
-c.login(process.env.TOKEN);
+(async () => {
+    const commandsFromRoutes = routes.command.map((r) => {
+        const { function:any, ...rest } = r;
+        return rest;
+      }) as Command[]
+    await f.registerCommands(c, commandsFromRoutes);
+    await database.authenticate();
+    await database.sync();
+    await c.login(process.env.TOKEN);
+})()

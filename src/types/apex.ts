@@ -1,3 +1,7 @@
+export interface ApiError {
+    Error?: string
+}
+
 export interface BridgeRequest {
     uid: string,
     platform: Platform,
@@ -8,7 +12,7 @@ export interface BridgeRequest {
     removeMerged?: string
 }
 
-export interface BridgeResponse {
+export interface BridgeResponse extends ApiError {
     global: {
         name: string,
         uid: string,
@@ -58,6 +62,18 @@ export interface LegendImgAssets {
     banner: string
 }
 
+export interface NametouidRequest {
+    player: string,
+    platform: Platform
+}
+
+export interface NametouidResponse extends ApiError {
+    name: string,
+    uid: string,
+    pid: string,
+    avatar: string
+}
+
 export type Platform = "PC" | "PS4" | "X1"
 export type Ranks = "Rookie" | "Bronze" | "Silver" | "Gold" | "Platinum" | "Diamond" | "Master" | "Apex Predator"
 
@@ -66,4 +82,8 @@ export interface API {
         "request": BridgeRequest,
         "response": BridgeResponse
     },
+    "nametouid": {
+        "request": NametouidRequest,
+        "response": NametouidResponse
+    }
 }

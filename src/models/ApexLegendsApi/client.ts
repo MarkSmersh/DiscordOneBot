@@ -12,20 +12,24 @@ export default class ApexLegendsApi {
 
     async request<R extends keyof API, P extends API[R]["request"]>(methodName: R, methodParams: P): Promise<API[R]["response"]> {
         // creates string request url from baseurl and methodParams
-        let response: AxiosResponse<any, any> = await new Promise (async (resolve) => {
-            let request = axios.get(
-                this.baseUrl + methodName + "?" + `auth=${this.token}` + "&" + new URLSearchParams(methodParams as unknown as Record<string, string>)
-            );
+        // let response: AxiosResponse<any, any> = await new Promise (async (resolve) => {
+        //     let request = axios.get(
+        //         this.baseUrl + methodName + "?" + `auth=${this.token}` + "&" + new URLSearchParams(methodParams as unknown as Record<string, string>)
+        //     );
 
-            request.catch((e: AxiosError) => {
-                let data = e.response?.data as { Error: string };
-                console.log(data.Error)
-            })
+        //     request.catch((e: AxiosError) => {
+        //         let data = e.response?.data as { Error: string };
+        //         console.log(data.Error)
+        //     })
 
-            request.then((e) => {
-                resolve(e);
-            })
-        })
+        //     request.then((e) => {
+        //         resolve(e);
+        //     })
+        // })
+
+        let response = await axios.get(
+            this.baseUrl + methodName + "?" + `auth=${this.token}` + "&" + new URLSearchParams(methodParams as unknown as Record<string, string>)
+        );
 
         return (await response.data);
     }

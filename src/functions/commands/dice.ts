@@ -1,5 +1,4 @@
-import { Client, ChatInputCommandInteraction, AttachmentBuilder, EmbedBuilder  } from "discord.js"
-import { readFileSync } from "fs";
+import { Client, ChatInputCommandInteraction, EmbedBuilder  } from "discord.js"
 
 export default async function dice(c: Client, e: ChatInputCommandInteraction) {
     const random = Math.floor(Math.random() * 6) + 1;

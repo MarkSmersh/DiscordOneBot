@@ -4,6 +4,7 @@ declare global {
             TOKEN: string;
             CLIENT_ID: string;
             APEXLEGENDSAPI_TOKEN: string;
+            DATABASE_URI: string;
         }
     }
 }

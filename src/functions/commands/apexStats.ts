@@ -1,9 +1,19 @@
-import { Client, ChatInputCommandInteraction, EmbedBuilder, ColorResolvable } from "discord.js"
+import { Client, ChatInputCommandInteraction, EmbedBuilder, ColorResolvable, User } from "discord.js"
+import { UserEAUID } from "../../database";
 import { ApexLegendsApi } from "../../models"
 import { Ranks } from "../../types/apex";
 
-export default async function ping(c: Client, e: ChatInputCommandInteraction) {
-    const stats = await ApexLegendsApi.request("bridge", { uid: e.options.getInteger("uid")?.toString() as string, platform: "PC" });
+export default async function apexStats(c: Client, e: ChatInputCommandInteraction) {
+    const targetUser = e.options.getUser("user");
+
+    const userUID = await UserEAUID.findOne({ where: { userId: (targetUser) ? targetUser?.id : e.user.id }})
+
+    if (!userUID) {
+        await e.reply(`EA Account **is not registered** for ${(targetUser) ? "provided user" : "current user"}. Use /apex-register to link EA Account`);
+        return;
+    }
+
+    const stats = await ApexLegendsApi.request("bridge", { uid: userUID.uid, platform: "PC" });
 
     const currentLegend = stats.legends.selected;
     const rank = stats.global.rank
