@@ -10,21 +10,35 @@ const c = new Client({ intents: [GatewayIntentBits.Guilds] });
 const routes: Routes = {
     "command": [
         {
-            data: "ping",
-            description: "Answers with pong",
+            name: "ping",
+            description: "Pong",
             function: f.ping
         },
         {
-            data: "saymyname",
-            description: "Says your name",
-            function: f.sayMyName
+            name: "dice",
+            description: "Role the dice!",
+            options: [
+                {
+                    type: 4,
+                    min_value: 1,
+                    max_value: 6,
+                    required: false,
+                    name: "score",
+                    description: "Try to predict it!"
+                }
+            ],
+            function: f.dice
         }
     ]
 }
 
 c.once('ready', () => {
   console.log(`Logged in as ${c.user?.tag}!`);
-  f.registerCommands(c, routes.command.map((r) => ({ "name": r.data, "description": r.description })) as Command[])
+  const commandsFromRoutes = routes.command.map((r) => {
+    const { function:any, ...rest } = r;
+    return rest;
+  }) as Command[]
+  f.registerCommands(c, commandsFromRoutes)
 });
 
 c.on("interactionCreate", async (e) => {
