@@ -39,12 +39,12 @@ const routes: Routes = {
                     required: false,
                     name: "user",
                     description: "Provide user"
-                }
+                },
             ],
             function: f.apexStats
         },
         {
-            name: "apex-register",
+            name: "apex-link",
             description: "Connect EA account to current user",
             options: [
                 {
@@ -54,7 +54,12 @@ const routes: Routes = {
                     description: "Provide EA ID (username)"
                 }
             ],
-            function: f.apexRegister
+            function: f.apexLink
+        },
+        {
+            name: "apex-unlink",
+            description: "Unlink EA Account from current user",
+            function: f.apexUnlink
         }
     ]
 }
