@@ -60,6 +60,20 @@ const routes: Routes = {
             name: "apex-unlink",
             description: "Unlink EA Account from current user",
             function: f.apexUnlink
+        },
+        {
+            name: "setup-roles",
+            description: "Setups server roles, required for bot functions, that bind with...",
+            defaultMemberPermissions: "Administrator",
+            options: [
+                {
+                    type: 5,
+                    required: false,
+                    name: "apex-legends",
+                    description: "...Apex: Legends"
+                }
+            ],
+            function: f.setupRoles
         }
     ]
 }

@@ -1,0 +1,14 @@
+{
+    "apexLegends": {
+        "roles": {
+            "Rookie": "Apex Rookie",
+            "Bronze": "Apex Bronze",
+            "Silver": "Apex Silver",
+            "Gold": "Apex Gold",
+            "Platinum": "Apex Platinum",
+            "Diamond": "Apex Diamond",
+            "Master": "Apex Master",
+            "Apex Predator": "Apex Predator"
+        }
+    }
+}

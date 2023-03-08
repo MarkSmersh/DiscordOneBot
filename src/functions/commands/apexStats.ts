@@ -2,6 +2,7 @@ import { Client, ChatInputCommandInteraction, EmbedBuilder, ColorResolvable, Use
 import { UserEAUID } from "../../database";
 import { ApexLegendsApi } from "../../models"
 import { Ranks } from "../../types/apex";
+import { apexLegends } from "../../config.json";
 
 export default async function apexStats(c: Client, e: ChatInputCommandInteraction) {
     const targetUser = e.options.getUser("user");
@@ -29,23 +30,20 @@ export default async function apexStats(c: Client, e: ChatInputCommandInteractio
     }
 
     const rankToRole: Record<Ranks, Role["name"]> = {
-        "Rookie": "Apex Rookie",
-        "Bronze": "Apex Bronze",
-        "Silver": "Apex Silver",
-        "Gold": "Apex Gold",
-        "Platinum": "Apex Platinum",
-        "Diamond": "Apex Diamond",
-        "Master": "Apex Master",
-        "Apex Predator": "Apex Predator"
+        "Rookie": apexLegends.roles["Rookie"],
+        "Bronze": apexLegends.roles["Bronze"],
+        "Silver": apexLegends.roles["Silver"],
+        "Gold": apexLegends.roles["Gold"],
+        "Platinum": apexLegends.roles["Platinum"],
+        "Diamond": apexLegends.roles["Diamond"],
+        "Master": apexLegends.roles["Master"],
+        "Apex Predator": apexLegends.roles["Apex Predator"]
     }
 
     const rankRole = e.guild?.roles.cache.find((r) => r.name === rankToRole[rank.rankName]);
 
     if (rankRole) {
-        const rankRoles = e.guild?.roles.cache.filter((r) => r.name.includes("Apex"));
-        if (rankRoles) {
-            await e.guild?.members.cache.get(userUID.userId)?.roles.remove(rankRoles);
-        }
+        await e.guild?.members.cache.get(userUID.userId)?.roles.remove(Object.values(apexLegends.roles));
         await e.guild?.members.cache.get(userUID.userId)?.roles.add(rankRole, "Rank update");
     }
 
