@@ -52,9 +52,17 @@ export interface BridgeResponse extends ApiError {
     legends: {
         selected: {
             LegendName: string,
-            ImgAssets: LegendImgAssets
+            ImgAssets: LegendImgAssets,
+            data: LegendData[]
         }
     }
+}
+
+export interface LegendData {
+    name: string,
+    value: number,
+    key: string,
+    global: boolean
 }
 
 export interface LegendImgAssets {
