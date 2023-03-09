@@ -18,7 +18,10 @@ export default async function setupRoles(c: Client, e: ChatInputCommandInteracti
 
     if (apexLegendsRoles) {
         Object.values(apexLegends.roles).forEach(async (r) => {
-            await e.guild?.roles.create({ name: r, color: getRandomColor(), reason: "Setup Apex Legends Roles for bot functionality" });
+            const isRole = e.guild?.roles.cache.find((role) => role.name === r);
+            if (!isRole) {
+                await e.guild?.roles.create({ name: r, color: getRandomColor(), reason: "Setup Apex Legends Roles for bot functionality" });
+            }
         })
     }
 

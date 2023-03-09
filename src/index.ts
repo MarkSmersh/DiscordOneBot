@@ -74,6 +74,21 @@ const routes: Routes = {
                 }
             ],
             function: f.setupRoles
+        },
+        {
+            name: "coin",
+            description: "Flips a coin!",
+            options: [
+                {
+                    type: 4,
+                    min_value: 1,
+                    max_value: 2,
+                    required: false,
+                    name: "prediction",
+                    description: "1 - for heads, 2 - for tails"
+                }
+            ],
+            function: f.coin
         }
     ]
 }
