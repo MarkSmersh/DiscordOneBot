@@ -4,6 +4,7 @@ import database from "./database/database";
 import * as f from "./functions/index"
 import router from "./routes/router";
 import { Command, Routes } from "./types/basic";
+import { balance as balanceConfig } from "./config.json"
 
 env.config({ path: __dirname + "/.env" });
 const c = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -86,9 +87,27 @@ const routes: Routes = {
                     required: false,
                     name: "prediction",
                     description: "1 - for heads, 2 - for tails"
+                },
+                {
+                    type: 10,
+                    min_value: 1,
+                    max_value: 1000000000,
+                    required: false,
+                    name: "bet",
+                    description: "If win -> *2 of bet"
                 }
             ],
             function: f.coin
+        },
+        {
+            name: "balance",
+            description: "Provides balance for current user",
+            function: f.balance
+        },
+        {
+            name: "zapomoga",
+            description: `Give a possibility to take ${balanceConfig.grantAmount} every ${balanceConfig.grantUpdate} seconds`,
+            function: f.grant
         }
     ]
 }

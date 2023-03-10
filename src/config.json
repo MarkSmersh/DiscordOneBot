@@ -10,5 +10,10 @@
             "Master": "Apex Master",
             "Apex Predator": "Apex Predator"
         }
+    },
+    "balance": {
+        "name": "deez nuts",
+        "grantAmount": 1000,
+        "grantUpdate": 3600
     }
 }
