@@ -38,7 +38,7 @@ export default async function coin(c: Client, e: ChatInputCommandInteraction) {
         // .setDescription(`${(prediction) ? ((prediction === random) ? "Nice one, bitch!" : "Nice try, kiddo") : "No predictions?"}`)
         .setTitle(`You got ${idToName[random - 1]}!`)
         .setAuthor({ name: e.user.username as string, iconURL: e.user.displayAvatarURL() })
-        .setFooter({ text: `${e.user.username}'s prediction: ${prediction}`})
+        .setFooter({ text: `${e.user.username}'s prediction: ${idToName[prediction - 1]}`})
         .setColor((prediction) ? ((prediction === random) ? 0x00FF00 : 0xFF0000) : 0xFFFFFF)
 
     if (bet && random === prediction) {

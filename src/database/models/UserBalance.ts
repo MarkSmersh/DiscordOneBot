@@ -10,7 +10,7 @@ export default class UserBalance extends Model<InferAttributes<UserBalance>, Inf
 
 UserBalance.init({    
     userId: { type: DT.STRING, unique: true },
-    balance: { type: DT.INTEGER },
+    balance: { type: DT.NUMBER },
     lastGrantAt: { type: DT.DATE },
     updatedAt: { type: DT.DATE }
 }, { tableName: 'userBalance', sequelize });

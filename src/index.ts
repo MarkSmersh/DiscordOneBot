@@ -108,6 +108,27 @@ const routes: Routes = {
             name: "zapomoga",
             description: `Give a possibility to take ${balanceConfig.grantAmount} every ${balanceConfig.grantUpdate} seconds`,
             function: f.grant
+        },
+        {
+            name: "balance-transfer",
+            description: "Tranfer from your balance provided amount to provided user",
+            options: [
+                {
+                    type: 4,
+                    name: "amount",
+                    description: `Amount of ${balanceConfig.name} to be transfered`,
+                    required: true,
+                    min_value: 1,
+                    max_value: 1000000
+                },
+                {
+                    type: 6,
+                    name: "user",
+                    description: `User, that claims your transfer`,
+                    required: true
+                }
+            ],
+            function: f.balanceTransfer
         }
     ]
 }
