@@ -91,7 +91,7 @@ const routes: Routes = {
                 {
                     type: 10,
                     min_value: 1,
-                    max_value: 1000000000,
+                    max_value: 100000000,
                     required: false,
                     name: "bet",
                     description: "If win -> *2 of bet"
@@ -114,7 +114,7 @@ const routes: Routes = {
             description: "Tranfer from your balance provided amount to provided user",
             options: [
                 {
-                    type: 4,
+                    type: 10,
                     name: "amount",
                     description: `Amount of ${balanceConfig.name} to be transfered`,
                     required: true,
@@ -129,12 +129,59 @@ const routes: Routes = {
                 }
             ],
             function: f.balanceTransfer
+        },
+        {
+            name: "duel",
+            description: "Creates a 1vs1 duel request to someone",
+            options: [
+                {
+                    type: 6,
+                    name: "opponent",
+                    description: "Request to certain user",
+                    required: false,
+                },
+                {
+                    type: 10,
+                    name: "bet",
+                    description: "Make a bet. Who win, will take the bet amount for self",
+                    required: false,
+                    min_value: 100,
+                    max_value: 1000000000
+                }
+            ],
+            function: f.duel
+        }
+    ],
+    "button": [
+        {
+            name: "duel-accept",
+            function: f.duelAccept
+        },
+        {
+            name: "duel-rules",
+            function: f.duelRules
+        },
+        {
+            name: "duel-gun",
+            function: f.duelGun
+        },
+        {
+            name: "duel-hide",
+            function: f.duelHide
+        },
+        {
+            name: "duel-shoot",
+            function: f.duelShoot
+        },
+        {
+            name: "duel-cancel",
+            function: f.duelCancel
         }
     ]
 }
 
 c.once('ready', () => {
-  console.log(`Logged in as ${c.user?.tag}!`);
+  console.log(`Logged in as ${c.user?.tag} at ${new Date().toLocaleString()}!`);
 });
 
 c.on("interactionCreate", async (e) => {
@@ -142,7 +189,7 @@ c.on("interactionCreate", async (e) => {
 });
 
 (async () => {
-    const commandsFromRoutes = routes.command.map((r) => {
+    const commandsFromRoutes = routes.command?.map((r) => {
         const { function:any, ...rest } = r;
         return rest;
       }) as Command[]

@@ -5,28 +5,14 @@ export interface Command {
     description: string
 }
 
-// export interface RouterEvent {
-//     data: string,
-//     description: string,
-//     function: (c: Client, e: any) => Promise<void>
-// }
-
-
-
 export interface Router {
     name: string,
     function: (c: Client, e: any) => Promise<void>
 }
 
+export type CommandEvent = Router & ApplicationCommandData;
 
-export type CommandEvent = Router & ApplicationCommandData
-
-export type RouterEvent = CommandEvent
-
-
-
-export enum RouterEvents {
-    "command" = "command"
+export interface Routes {
+    "command"?: CommandEvent[];
+    "button"?: Router[];
 }
-
-export type Routes = Record<RouterEvents, RouterEvent[]>

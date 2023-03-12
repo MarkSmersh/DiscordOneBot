@@ -14,6 +14,11 @@
     "balance": {
         "name": "deez nuts",
         "grantAmount": 1000,
-        "grantUpdate": 3600
+        "grantUpdate": 3600,
+        "max": 4294967295
+    },
+    "duel": {
+        "turn": 60,
+        "request": 300
     }
 }
