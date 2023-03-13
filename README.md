@@ -1,5 +1,5 @@
 # DiscordOneBot
-*Last README update: 09.03.2023*
+*Last README update: 13.03.2023*
 
 ## Used technologies
 - **DiscordJS** (*ver. 14.7.1*)
@@ -27,10 +27,30 @@ You shouldn`t, but...
 
 ![Statictics, that shows /apexStats](https://i.imgur.com/1uhvaYh.png)
 
+`/balance` - Creates *(if not exists)* balance for user, that using in different commands like `/coin`, `/duel` and others.
+
+`/zapomoga` - Transfer on balance provided in config (`./src/config.json`) amount of value in provided interval. Works like grant
+
+`/coin [prediction?: number, bet?: number]` - Flips a coin, that have 50/50 for heads or tails. If providen `prediction` - shows if user prediction was right. If `bet` providen - if user was right add to balance value of `bet` * 2, othewise subtract from balace given `bet` value.
+
+`/duel [opponent?: User, bet?: number]` - Creates a request for duel mini-game to (if providen `opponent`) user and with (if provided `bet`) bet. Who wins - takes bet, who loose - substract bet. Rules can be read, when request created.
+
 ### Configuration
 
 You can edit `config.json` in `./src` folder.
 
-- Change `Rank-Role` names in `apexLegends.Roles`. **Be careful**, you shouldn't change `keys` names, othewise it`ll have bad consequences.
+Change `Rank-Role` names in `apexLegends.Roles`. **Be careful**, you shouldn't change `keys` names, othewise it`ll have bad consequences.
+
+Change `balance` settings
+
+- `name` - for value *(coin)* name
+- `grantAmount` - amount of value, that gives with `/zapomoga` commands
+- `grantUpdate` - interval for `/zapomoga` command
+- `max` - max amount of value, that can be on `/balance` *(not using for now)*
+
+Change `duel` settings
+
+- `turn` - time that given for one-side turn in `/duel`. If response time > `turn` - duel ends
+- `request` - time with `/duel` request expires *(not using for now)*
 
 ## Star the repository if you liked it!
