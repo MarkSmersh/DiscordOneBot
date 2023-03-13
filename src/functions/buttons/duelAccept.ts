@@ -2,7 +2,6 @@ import { Client, ButtonInteraction, ActionRowBuilder, ButtonBuilder, ButtonStyle
 import { Op } from "sequelize";
 import { DuelData, UserBalance } from "../../database";
 import { balance as balanceConfig, duel as duelConfig } from "../../config.json";
-import { v4 } from "uuid";
 import duelTurnExpire from "../helpers/duelTurnExpire";
 
 export default async function duelAccept(c: Client, e: ButtonInteraction) {

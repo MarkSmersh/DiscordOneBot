@@ -1,5 +1,4 @@
 import { Client, ButtonInteraction, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
-import { v4 } from "uuid";
 import { DuelData } from "../../database"
 import duelTurnExpire from "../helpers/duelTurnExpire";
 

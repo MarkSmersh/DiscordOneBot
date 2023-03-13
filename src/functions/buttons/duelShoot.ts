@@ -1,8 +1,6 @@
 import { Client, ButtonInteraction, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
-import { Op } from "sequelize";
 import { DuelData, UserBalance } from "../../database";
 import { balance as balanceConfig } from "../../config.json";
-import { v4 } from "uuid";
 import duelTurnExpire from "../helpers/duelTurnExpire";
 
 export default async function duelShoot(c: Client, e: ButtonInteraction) {

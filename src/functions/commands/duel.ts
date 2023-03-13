@@ -2,7 +2,6 @@ import { Client, ChatInputCommandInteraction, ButtonBuilder, ButtonStyle, Action
 import { DuelData, UserBalance } from "../../database";
 import { Op } from "sequelize";
 import { balance as balanceConfig } from "../../config.json";
-import { v4 } from "uuid";
 
 export default async function duel(c: Client, e: ChatInputCommandInteraction) {
     const duelData = await DuelData.findOne({ where: { [Op.not]: [{ state: "end" }], [Op.or]: [{ offeredId: e.user.id }, { acceptedId: e.user.id }] } });
