@@ -42,8 +42,11 @@ export default async function apexStats(c: Client, e: ChatInputCommandInteractio
 
     const rankRole = e.guild?.roles.cache.find((r) => r.name === rankToRole[rank.rankName]);
 
-    if (rankRole) {
-        await e.guild?.members.cache.get(userUID.userId)?.roles.remove(Object.values(apexLegends.roles));
+    if (rankRole) {        
+        const deprecatedRoles = e.guild?.roles.cache.filter((role) => Object.values(apexLegends.roles).includes(role.name));
+        if (deprecatedRoles) {
+            await e.guild?.members.cache.get(userUID.userId)?.roles.remove(deprecatedRoles);
+        }
         await e.guild?.members.cache.get(userUID.userId)?.roles.add(rankRole, "Rank update");
     }
 
