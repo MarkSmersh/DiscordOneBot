@@ -150,6 +150,27 @@ const routes: Routes = {
                 }
             ],
             function: f.duel
+        },
+        {
+            name: "tip",
+            description: "Tip someone with provided amount of money",
+            options: [
+                {
+                    type: 6,
+                    name: "user",
+                    description: "User to tip",
+                    required: true
+                },
+                {
+                    type: 10,
+                    name: "amount",
+                    description: "Amount of money to tip",
+                    required: false,
+                    min_value: 1,
+                    max_value: 999
+                }
+            ],
+            function: f.tip
         }
     ],
     "button": [

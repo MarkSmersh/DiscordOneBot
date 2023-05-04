@@ -1,6 +1,7 @@
 import { Client, ChatInputCommandInteraction, EmbedBuilder } from "discord.js";
 import { UserBalance } from "../../database";
 import { balance as balanceConfig } from "../../config.json";
+import balanceRulesCheck from "../helpers/balanceRulesCheck";
 
 export default async function coin(c: Client, e: ChatInputCommandInteraction) {
     const prediction = e.options.getInteger("prediction") as 1 | 2;
@@ -13,15 +14,7 @@ export default async function coin(c: Client, e: ChatInputCommandInteraction) {
         return;
     }
 
-    if (bet && !userBalance) {
-        await e.reply("You can't make a bet without balance. You can create it with `/balance` command");
-        return;
-    }
-
-    if (bet && userBalance?.balance as number < bet) {
-        await e.reply(`You can't make this bet, cause in your balance you have less ${balanceConfig.name}...`);
-        return;
-    }
+    if (bet && !(await balanceRulesCheck(c, e, bet))) return;
     
     const idToGif = [
         "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWRiMGU5ZThlZmI2ZmEyYWM3YWU4NGU0NDFjZWIxOWI1NjlhYTQ2ZiZjdD1z/cPdoNLDjYYzqt5MPj0/giphy.gif",

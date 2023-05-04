@@ -2,6 +2,7 @@ import { Client, ChatInputCommandInteraction, ButtonBuilder, ButtonStyle, Action
 import { DuelData, UserBalance } from "../../database";
 import { Op } from "sequelize";
 import { balance as balanceConfig } from "../../config.json";
+import balanceRulesCheck from "../helpers/balanceRulesCheck";
 
 export default async function duel(c: Client, e: ChatInputCommandInteraction) {
     const duelData = await DuelData.findOne({ where: { [Op.not]: [{ state: "end" }], [Op.or]: [{ offeredId: e.user.id }, { acceptedId: e.user.id }] } });
@@ -15,17 +16,7 @@ export default async function duel(c: Client, e: ChatInputCommandInteraction) {
     const bet = e.options.getNumber("bet");
 
     if (bet) {
-        const userBalance = await UserBalance.findOne({ where: { userId: e.user.id } });
-
-        if (!userBalance) {
-            await e.reply({ content: `Seems you haven't balance. You can create it with \`/balance\``, ephemeral: true });
-            return;
-        }
-
-        if (userBalance.balance < bet) {
-            await e.reply({ content: `Seems you haven't enough ${balanceConfig.name} for this bet`, ephemeral: true });
-            return;
-        }
+        if (!await balanceRulesCheck(c, e, bet)) return;
     }
 
     const opponent = e.options.getUser("opponent");
@@ -48,6 +39,4 @@ export default async function duel(c: Client, e: ChatInputCommandInteraction) {
         )
 
     await e.reply({ content: `Created duel request${(bet) ? ` on ${bet} ${balanceConfig.name}` : ""}${(opponent) ? ` for <@${opponent.id}>` : ""}!`, components: [row] });
-
-    // const timer = 
 }

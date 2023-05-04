@@ -11,6 +11,7 @@ export { default as balance } from "./commands/balance"
 export { default as grant } from "./commands/grant"
 export { default as balanceTransfer } from "./commands/balanceTransfer"
 export { default as duel } from "./commands/duel"
+export { default as tip } from "./commands/tip"
 
 export { default as duelAccept } from "./buttons/duelAccept"
 export { default as duelCancel } from "./buttons/duelCancel"
